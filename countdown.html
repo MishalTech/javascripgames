@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-Minute Countdown</title>
+</head>
+<body>
+    <h1>2-Minute Countdown Timer</h1>
+    <div id="timer" style="font-size: 2rem; color: #333;"></div>
+    <script>
+        // Set the countdown duration (2 minutes in milliseconds)
+const countdownDuration = 2 * 60 * 1000;
+const endTime = new Date().getTime() + countdownDuration;
+
+// Update the timer every second
+const timerInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const timeLeft = endTime - now;
+
+    if (timeLeft > 0) {
+        const minutes = Math.floor(timeLeft / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").textContent = 
+            `${minutes}m ${seconds}s`;
+    } else {
+        clearInterval(timerInterval);
+        document.getElementById("timer").textContent = "Time's up!";
+    }
+}, 1000);
+
+    </script>
+</body>
+</html>

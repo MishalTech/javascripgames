@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Game</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        #main {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        #main2 {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        #main img {
+            width: 95px;
+            height: 95px;
+            cursor: grab;
+        }
+
+        #main2 div {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-hover {
+            background-color: #d4edda;
+            border: 2px dashed #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h2>Draggable Game</h2>
+    <p>Drag and drop the images to their correct locations.</p>
+
+    <div id="main">
+        <img value="1" src="/CUTData/CUTData/slice_0_0.gif">
+        <img value="2" src="/CUTData/CUTData/slice_0_1.gif">
+        <img value="3" src="/CUTData/CUTData/slice_0_2.gif">
+        <img value="4" src="/CUTData/CUTData/slice_1_0.gif">
+        <img value="5" src="/CUTData/CUTData/slice_1_1.gif">
+        <img value="6" src="/CUTData/CUTData/slice_1_2.gif">
+        <img value="7" src="/CUTData/CUTData/slice_2_0.gif">
+        <img value="8" src="/CUTData/CUTData/slice_2_1.gif">
+        <img value="9" src="/CUTData/CUTData/slice_2_2.gif">
+    </div>
+
+    <div id="main2">
+        <div value="1"></div>
+        <div value="2"></div>
+        <div value="3"></div>
+        <div value="4"></div>
+        <div value="5"></div>
+        <div value="6"></div>
+        <div value="7"></div>
+        <div value="8"></div>
+        <div value="9"></div>
+    </div>
+
+    <script>
+        $(function () {
+    // Enable draggable functionality for images
+    $('#main img').draggable({
+        revert: 'invalid', // Return to original position if not dropped correctly
+        containment: 'body', // Restrict dragging to the body
+        cursor: 'move', // Change cursor to 'move' while dragging
+    });
+
+    // Enable droppable functionality for target divs
+    $('#main2 div').droppable({
+        accept: '#main img', // Accept only images from #main
+        hoverClass: 'drop-hover', // Add hover effect when a draggable is over
+        drop: function (event, ui) {
+            const droppedImg = $(ui.draggable); // Dragged element
+            const targetValue = $(this).attr('value'); // Drop target's value
+            const imgValue = droppedImg.attr('value'); // Dragged image's value
+
+            if (imgValue === targetValue) {
+                // Correct drop: move the image into the target
+                $(this).append(droppedImg.css({ position: 'relative', top: 0, left: 0 }));
+                droppedImg.draggable('disable'); // Disable further dragging
+                $(this).droppable('disable'); // Disable the drop target
+                checkWin(); // Check for win condition
+            } else {
+                // Incorrect drop: alert and revert
+                alert('Incorrect placement. Try again!');
+                droppedImg.draggable('option', 'revert', true);
+            }
+        },
+    });
+
+    // Check win condition
+    function checkWin() {
+        if ($('#main2 div img').length === 9) {
+            alert('Congratulations! You placed all items correctly.');
+        }
+    }
+});
+
+    </script>
+</body>
+</html>

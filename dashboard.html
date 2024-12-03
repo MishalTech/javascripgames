@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+           font-family: arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+           color: #333;
+        }
+        .dashboard{
+            text-align: center;
+            padding: 20px;
+        }
+        h1{
+          font-size: 2.5em;
+          margin-bottom: 20px;
+          color: #4a148c;
+          text-shadow: 2px 2px #e1bee7;
+
+        }
+        .game-links{
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 20px;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        a{
+          text-decoration: none;
+        }
+
+        img{
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+         img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        footer{
+          text-align: center;
+          margin-top: 30px;
+          padding: 10px;
+          background: #4a148c;
+          color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+       <h1>Game Dashboard</h1>
+      <div class="game-links">
+      <a href="./draggable/jquery-ui-1.14.1/draggablegpt.html">
+        <img src="/dashboard images/Screenshot 2024-11-28 153934.png" alt="">
+      </a>
+      <a href="./rockpaper.html">
+        <img src="/dashboard images/1_hPhzeFD3htF7ly1AMmAVbw.webp" alt="">
+      </a>
+      <a href="./hangman.html">
+        <img src="./dashboard images/Screenshot 2024-11-28 155917.png" alt="">
+     </a>
+      <a href="./tiktakgame.html">
+        <img src="./dashboard images/unnamed.png" alt="">
+     </a>
+     <a href="/guesthenum2.html">
+        <img src="/dashboard images/Screenshot 2024-12-02 215319.png" alt="">
+     </a>
+      </div>
+
+    </div>
+    <footer>
+        © 2024 MUHAMMED MISHAL - All Rights Reserved
+    </footer>
+</body>
+</html>

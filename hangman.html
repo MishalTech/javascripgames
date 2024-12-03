@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    body{
+      background-color: #f3f4f6;
+      color: black;
+      text-align: center;
+    }
+    #word {
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+  margin: 20px 0;
+  color: #34495e;
+  }
+  #guessword {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #7f8c8d;
+}
+ input{
+   font-size: 1.2rem;
+   padding: 5px;
+   
+ }
+  #lifes{
+    font-size: 3rem;
+    color: red;
+
+  }
+  button{
+    background-color: black;
+    color: white;
+    width: 60px;
+    height: 50px;
+  }
+  button:hover {
+  background-color: green;
+  color: black;
+}
+
+    </style>
+</head>
+<body>
+    <h1>HANGMAN SIMPLE GAME</h1>
+    <h2>guess the word</h2>
+    <P id="word"></P>
+    <p id="guessword"></p>
+    <input type="text" maxlength="1" id="text">
+    <p id="lifes"></p>
+    <button onclick="guess()">Submit</button>
+    
+
+    <script>
+      const randomWords = [
+  "Galaxy","Wander","Quantum","Fluffy","Vibrant","Solitude","Echo","Ponder","Whistle","Dazzle",
+  "Fragrance","Twilight","Momentum","Tapestry","Mirage","Sprinkle","Lantern","Glimmer","Horizon",
+  "Ripple","Meadow","Zenith","Fable","Serendipity","Velvet","Cascade","Whisper","Luminous","Ember","Serenity"
+];
+
+   let words=document.getElementById('word')
+   let selectedword=''
+   let displaywords=[]
+   let input=document.getElementById('text')
+   let guessword=document.getElementById('guessword')
+   let guessleter=[]
+   let lifes=6
+   let lifestag=document.getElementById("lifes")
+
+
+   function startgame(){
+          selectedword=randomWords[Math.floor(Math.random()*randomWords.length)].toUpperCase()
+          lifes=6
+          lifestag.innerHTML=lifes
+          console.log(selectedword)
+          displaywords=Array(selectedword.length).fill('_') 
+          console.log(displaywords);
+          words.innerHTML=displaywords.join(' ')
+
+    }
+
+    function guess(){
+          guessleter.push(input.value.toUpperCase())
+          guessword.innerHTML=guessleter.join('')
+          if (selectedword.includes(input.value.toUpperCase())){
+            for(i=0;i<selectedword.length;i++){
+                if(selectedword[i]==input.value.toUpperCase()){
+                    displaywords[i]=input.value.toUpperCase()
+                }
+            }
+            words.innerHTML=displaywords.join('')
+          }
+          else {
+            lifes--
+            lifestag.innerHTML=lifes;
+
+          if (lifes===0){
+            alert('Game over! The word was:'+selectedword);
+          }
+          }
+          if (displaywords.join('')=== selectedword){
+            alert('congratulations!you guessed the word:'+selectedword);
+            startgame();
+          }
+
+          input.value=""
+    }
+   startgame()
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            margin-top: 10px;
+            width: 100px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: gray;
+        }
+
+        #computerchoice {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #computerselected {
+            color: blue;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Shaking animation */
+        .shake {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translateY(-5px); }
+            50% { transform: translateX(5px); }
+            100% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ROCK PAPER SCISSORS GAME</h1>
+    <h2>Choose Rock, Paper, or Scissors</h2>
+    <button id="btn1" value="✊rock" onclick="startgame(event)">✊ Rock</button>
+    <button id="btn2" value="🖐️paper" onclick="startgame(event)">✋ Paper</button>
+    <button id="btn3" value="✌️scissor" onclick="startgame(event)">✌️ Scissor</button>
+    
+    <div id="computerchoice">
+        <h2>Computer's Choice: <span id="computerselected">🤔</span></h2>
+    </div>
+    <p>Your Score=<span id="user"></span></p>
+    <p>Computer Score=<span id="computer"></span></p>
+
+    <div id="result"></div>
+
+    <script>
+        let choice = ["✊rock", "🖐️paper", "✌️scissor"];
+        const computerChoicediv = document.getElementById('computerselected');
+        const resultDiv = document.getElementById('result');
+        const userScore = document.getElementById('user');
+        const computerScore = document.getElementById('computer');
+
+        let user=0
+        let computer=0
+        userScore.innerHTML=user
+        computerScore.innerHTML=computer
+
+
+        function startgame(e) {
+            // Add shaking animation to computer's choice
+            computerChoicediv.classList.add("shake");
+            computerChoicediv.textContent = "🤜"; // Placeholder before revealing choice
+
+            setTimeout(() => {
+                // Determine computer's choice
+                let selecteitem = choice[Math.floor(Math.random() * choice.length)];
+
+                // Stop shaking animation and reveal the computer's choice
+                computerChoicediv.classList.remove("shake");
+                computerChoicediv.textContent = selecteitem;
+
+                // Determine the result
+                let result = "";
+                if (e.target.value == selecteitem) {
+                    result = "It's a draw!";
+                } else if (
+                    (e.target.value == "✊rock" && selecteitem == "✌️scissor")||
+                    (e.target.value == "🖐️paper" && selecteitem == "✊rock") ||
+                    (e.target.value == "✌️scissor" && selecteitem == "🖐️paper")
+                ) {
+                    result = "You win!";
+                    user++
+                    userScore.innerHTML=user
+
+                } else {
+                    result = "Computer wins!";
+                    computer++
+                    computerScore.innerHTML=computer
+
+                }
+
+                // Display the result
+                resultDiv.innerHTML = `
+                    <p>You chose: <strong>${e.target.value}</strong></p>
+                    <p>Computer chose: <strong>${selecteitem}</strong></p>
+                    <p><strong>${result}</strong></p>
+                `;
+            }, 2000); // 2-second delay before revealing the choice and result
+        }
+    </script>
+</body>
+</html>
